@@ -1,4 +1,6 @@
 -- +goose Up
+
+CREATE TYPE item_status AS ENUM ('rented', 'available', 'destroyed', 'maintenance')
 CREATE TABLE items (
 	id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 	name TEXT NOT NULL,
@@ -8,7 +10,7 @@ CREATE TABLE items (
 	rental_fee INTEGER NOT NULL,
 	maximum_uses SMALLINT NOT NULL,
 	remaining_uses SMALLINT NOT NULL,
-	loaned BOOLEAN DEFAULT FALSE,
+	status item_status NOT NULL DEFAULT 'available',
 	created_on TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_on TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
