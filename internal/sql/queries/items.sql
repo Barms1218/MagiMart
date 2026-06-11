@@ -17,8 +17,7 @@ customer,
 rental_fee) VALUES (
 $1,
 $2,
-$3
-);
+$3);
 
 -- name: ListItemsByType :many
 SELECT * FROM items
@@ -35,6 +34,18 @@ ORDER BY rental_free DESC;
 -- name: ListItemsByPriceAsc :many
 SELECT * FROM items
 ORDER BY rental_free ASC;
+
+-- name: ListActiveRentals :many
+SELECT * FROM rentals
+WHERE status = 'active' OR status = 'overdue';
+
+-- name: ListRentalsByFeeDesc :many
+SELECT * FROM rentals
+ORDER BY rental_fee DESC;
+
+-- name: ListRentalsByFeeAsc :many
+SELECT * FROM rentals
+ORDER BY rental_fee ASC;
 
 -- name: UpdateRentalStatus :exec
 UPDATE rentals
